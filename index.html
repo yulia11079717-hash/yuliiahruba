@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Yuliia Hruba — UI/UX Designer</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="favicon.png">
 <style>
 @font-face{font-family:"PP Mori";src:url(fonts/PPMori-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"PP Mori";src:url(fonts/PPMori-Book.woff2) format("woff2");font-weight:450;font-display:swap}
@@ -89,6 +87,7 @@ body.on-project .h2-top{display:none}
 .mmenu.open nav a{opacity:1;transform:none}
 .mmenu.open nav a:nth-child(2){transition-delay:.06s}.mmenu.open nav a:nth-child(3){transition-delay:.12s}.mmenu.open nav a:nth-child(4){transition-delay:.18s}.mmenu.open nav a:nth-child(5){transition-delay:.24s}
 .h2-tag{position:absolute;left:var(--pad);top:40%;max-width:230px;font-size:13px;color:#555}
+.h2-desc{display:none}
 .h2-tag b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
 .stack{position:absolute;left:calc(50% - 38px);top:43%;width:min(40vw,580px);aspect-ratio:4/3;transform:translate(-50%,-50%);z-index:2}
 .stack .sc{position:absolute;left:50%;top:50%;width:100%;border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(0,0,0,.45);transition:transform 1s cubic-bezier(.2,.8,.2,1);display:block;background:#fff;transform:translate(-50%,-50%)}
@@ -111,10 +110,14 @@ body.on-project .h2-top{display:none}
 .h2-name sup{font-size:.28em;vertical-align:top;position:relative;top:.12em;letter-spacing:0;margin-left:.04em}
 .h2-meta{position:absolute;right:calc(76px + var(--pad));bottom:calc(clamp(10px,1.6vw,24px) + clamp(44px,9.6vw,172px));text-align:right;font-weight:600;font-size:clamp(14px,1.3vw,20px);letter-spacing:-.02em}
 .h2-meta span{display:block;font-weight:400;color:#555;font-size:13px;margin-top:4px}
-.h2-meta .dot{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:var(--ink);margin:0 .45em .08em 0;vertical-align:middle}
-@media (max-width:760px){.h2-meta{right:auto;left:var(--pad);text-align:left;font-size:15px;bottom:calc(max(18px,3svh) + 13.5vw + 16px)}}
 @media (max-width:980px){.hero2{padding-right:56px}.h2-top{right:56px;grid-template-columns:1fr auto}.h2-nav{display:none}.h2-menu{display:block}.h2-tag{display:none}.stack{width:72vw;top:42%;left:calc(50% - 28px)}}
 @media (max-width:760px){
+  .side .burger{display:none}
+  .page .side-in{padding-top:22px}
+  .h2-top{align-items:start}
+  .h2-desc{display:block;font-weight:500;font-size:12.5px;line-height:1.35;letter-spacing:0;margin-top:6px;max-width:250px;transition:opacity .35s,max-height .35s;max-height:80px;overflow:hidden}
+  .h2-desc b{font-weight:700}
+  .h2-top.scrolled .h2-desc{opacity:0;max-height:0;margin-top:0}
   .ft .copy{text-align:left}
   .proc .ptabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:0;border-top:0;gap:0;row-gap:0}
   .proc .ptabs::-webkit-scrollbar{display:none}
@@ -123,14 +126,15 @@ body.on-project .h2-top{display:none}
   .proc-head h2 br{display:none}
   .proc-head h2{white-space:nowrap;font-size:clamp(40px,13.5vw,72px)}
   .brief .req{display:none}
-  .side{display:none}
-  .hero2,.intro,.svc,.proj,.oci,.proc{padding-right:var(--pad)!important}
-  .pp{padding-right:0!important}
-  .hero2{padding-right:0!important;min-height:560px;height:86svh}
-  .h2-top{right:0;padding:22px var(--pad)}
-  .stack{left:50%;top:47%;width:94vw}
+  .hero2{min-height:560px;height:86svh}
+  .h2-top{right:56px;padding:22px var(--pad)}
+  .stack{left:calc(50% - 28px);top:47%;width:calc((100vw - 56px) * .94)}
   .stack .sc{border-radius:4px}
-  .h2-name{font-size:16.4vw;font-weight:700;letter-spacing:-.06em;left:var(--pad);bottom:max(18px,3svh)}
+  .h2-name{font-size:calc((100vw - 56px) * .148);font-weight:700;letter-spacing:-.06em;left:var(--pad);bottom:max(18px,3svh)}
+  .proj .prow h3{font-size:clamp(19px,6vw,28px)}
+  .proj .prow{grid-template-columns:minmax(0,1fr) 92px 30px;gap:10px}
+  .proj .prow .th{height:auto}
+  .proj .prow .th img{width:100%;height:auto;min-width:0}
 }
 
 /* project panels (shown until real images load) */
@@ -351,13 +355,12 @@ body.on-project .h2-top{display:none}
 
 <section class="hero2" id="home">
   <div class="h2-top">
-    <a href="#home" class="h2-brand">Yuliia Hruba<sup>®</sup></a>
+    <a href="#home" class="h2-brand">Yuliia Hruba<sup>®</sup><span class="h2-desc"><b>— UI/UX Designer</b><br>E‑commerce, SaaS &amp; mobile apps — designed in Figma, built to convert.</span></a>
     <nav class="h2-nav"><a href="#projects">Projects</a><a href="#services">Services</a><a href="#numbers">Numbers</a><a href="#process">Process</a><a href="#contact">Contact</a></nav>
     <button class="h2-menu" id="openM" aria-expanded="false" aria-controls="mmenu">Menu</button>
   </div>
   <div class="h2-tag"><b>UI/UX Designer</b>E‑commerce, SaaS &amp; mobile apps — designed in Figma, built to convert.</div>
   <div class="stack" id="stack"></div>
-  <div class="h2-meta"><i class="dot"></i>Open for new projects</div>
   <h1 class="h2-name">Yuliia Hruba<sup>®</sup></h1>
 </section>
 
@@ -556,6 +559,7 @@ function route(){
 addEventListener('hashchange',route);
 
 // header border on scroll
+const hdrTop=document.querySelector('.h2-top'); const onS=()=>hdrTop&&hdrTop.classList.toggle('scrolled',scrollY>40); addEventListener('scroll',onS,{passive:true}); onS();
 const mm=document.getElementById('mmenu'), om=document.getElementById('openM');
 const setM=o=>{mm.classList.toggle('open',o);mm.setAttribute('aria-hidden',!o);om.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';};
 om.addEventListener('click',()=>setM(true)); document.getElementById('closeM').addEventListener('click',()=>setM(false));
