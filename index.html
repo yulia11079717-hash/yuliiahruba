@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yuliia Hruba — UI/UX Designer</title>
+<style>
+@font-face{font-family:"PP Mori";src:url(fonts/PPMori-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"PP Mori";src:url(fonts/PPMori-Book.woff2) format("woff2");font-weight:450;font-display:swap}
+@font-face{font-family:"PP Mori";src:url(fonts/PPMori-Semibold.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"PP Mori";src:url(fonts/PPMori-Extrabold.woff2) format("woff2");font-weight:800;font-display:swap}
+:root{
+  --cream:#fff; --ink:#0b0b0b; --grain:#f3f3f3; --dark:#0b0b0b; --oci-bg:#fff; --oci:#0b0b0b;
+  --f:"PP Mori",system-ui,sans-serif; --mono:var(--f); --serif:var(--f);
+  --pad:clamp(16px,1.6vw,24px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip;scroll-padding-top:64px}
+body{font-family:var(--f);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip;font-size:16px;line-height:1.45}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block;max-width:100%}
+.view[hidden]{display:none!important}
+
+/* ============ HERO — Douglas Hyde ============ */
+.hero{position:relative;min-height:100svh;padding:var(--pad);padding-right:calc(var(--pad) + 76px);display:flex;flex-direction:column;background:var(--cream)}
+.page{position:relative}
+.side{position:absolute;top:0;right:0;bottom:0;width:76px;z-index:30;background:var(--cream);border-left:14px solid var(--ink)}
+.side-in{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:28px;gap:40px}
+.burger{width:44px;display:grid;gap:9px;padding:6px 0}
+.burger i{display:block;height:2px;background:var(--ink)}
+.side .vt{writing-mode:vertical-rl;font-weight:600;font-size:30px;letter-spacing:-.03em;white-space:nowrap;display:flex;align-items:center;gap:14px}
+.side .vt .dot{width:12px;height:12px;border-radius:50%;background:var(--ink);display:inline-block}
+.topnav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px;padding-bottom:18px}
+.logo{font-weight:800;font-size:34px;line-height:.86;letter-spacing:-.045em}
+.logo span{display:block}
+.logo span:nth-child(2){padding-left:5px}
+.links{display:flex;justify-content:space-around}
+.links a{font-weight:600;font-size:clamp(18px,1.7vw,26px);letter-spacing:-.03em;position:relative}
+.links a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.links a:hover::after{transform:scaleX(1)}
+.hire{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:18px;border:2px solid var(--ink);border-radius:999px;padding:10px 20px;transition:background .25s,color .25s}
+.hire:hover{background:var(--ink);color:var(--cream)}
+.mosaic{flex:1;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:1fr 1fr;gap:var(--pad);min-height:560px}
+.tile{position:relative;overflow:hidden;background:#efefef;cursor:pointer}
+.tile .pn{transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .pn{transform:scale(1.04)}
+.tile .cap{position:absolute;left:12px;bottom:12px;background:var(--cream);font-weight:600;font-size:13px;padding:6px 12px;border-radius:999px;opacity:0;transform:translateY(6px);transition:.3s;z-index:2}
+.tile:hover .cap{opacity:1;transform:none}
+.t1{grid-column:1/span 5;grid-row:1}
+.t2{grid-column:1/span 2;grid-row:2}
+.t3{grid-column:3/span 3;grid-row:2;background:var(--ink);cursor:default}
+.t3::before{content:"";position:absolute;inset:0;background:#fff;border-radius:46%/50%;transform:scaleX(1.04)}
+.t3 .shape-txt{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:600;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.03em;line-height:1.1;padding:20px}
+.t4{grid-column:6/span 3;grid-row:1/span 2}
+.t5{grid-column:9/span 2;grid-row:1}
+.t6{grid-column:11/span 2;grid-row:1}
+.t7{grid-column:9/span 4;grid-row:2}
+.hero-foot{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad);align-items:end;padding-top:14px}
+.welcome{grid-column:1/span 8;font-weight:800;font-size:clamp(64px,10.5vw,176px);letter-spacing:-.06em;line-height:.8;margin-bottom:-.06em}
+.hf{grid-column:span 2;font-size:15px}
+.hf b{display:block;font-weight:600;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.03em;margin-bottom:4px}
+.hf a{text-decoration:underline;text-underline-offset:3px}
+
+/* ============ HERO — giant name + card stack ============ */
+.hero2{position:relative;height:100svh;min-height:640px;overflow:hidden;background:#fff;padding-right:76px}
+.h2-top{position:fixed;left:0;right:76px;top:0;padding:24px var(--pad);display:grid;grid-template-columns:1fr 1.25fr;align-items:center;z-index:40;color:#fff;mix-blend-mode:difference;pointer-events:none}
+.h2-top a,.h2-top button{pointer-events:auto}
+body.on-project .h2-top{display:none}
+.h2-brand{font-weight:800;font-size:clamp(17px,1.4vw,22px);letter-spacing:-.035em;color:#fff}
+.h2-brand sup{font-size:.6em}
+.h2-nav{display:flex;justify-content:space-between}
+.h2-nav a{font-size:clamp(13px,1.05vw,16px);font-weight:700;text-transform:uppercase;letter-spacing:.01em;color:#fff;position:relative}
+.h2-nav a::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.h2-nav a:hover::after{transform:scaleX(1)}
+.h2-menu{display:none;justify-self:end;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.01em;color:#fff}
+/* mobile overlay menu */
+.mmenu{position:fixed;inset:0;z-index:80;background:#000;color:#fff;display:flex;flex-direction:column;padding:22px var(--pad);clip-path:inset(0 0 100% 0);transition:clip-path .6s cubic-bezier(.77,0,.18,1);visibility:hidden}
+.mmenu.open{clip-path:inset(0 0 0 0);visibility:visible}
+.mmenu-top{display:flex;justify-content:space-between;align-items:center}
+.mmenu-top .b{font-weight:800;font-size:18px;letter-spacing:-.035em}
+.mmenu-top .b sup{font-size:.6em}
+.mmenu-top button{color:#fff;font-weight:800;font-size:15px;text-transform:uppercase}
+.mmenu nav{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:22px}
+.mmenu nav a{font-weight:800;font-size:clamp(38px,11vw,56px);letter-spacing:-.045em;line-height:1;opacity:0;transform:translateY(20px);transition:opacity .4s,transform .5s cubic-bezier(.2,.8,.2,1)}
+.mmenu.open nav a{opacity:1;transform:none}
+.mmenu.open nav a:nth-child(2){transition-delay:.06s}.mmenu.open nav a:nth-child(3){transition-delay:.12s}.mmenu.open nav a:nth-child(4){transition-delay:.18s}.mmenu.open nav a:nth-child(5){transition-delay:.24s}
+.h2-tag{position:absolute;left:var(--pad);top:40%;max-width:230px;font-size:13px;color:#555}
+.h2-tag b{display:block;color:var(--ink);font-weight:600;font-size:15px;margin-bottom:4px}
+.stack{position:absolute;left:calc(50% - 38px);top:43%;width:min(40vw,580px);aspect-ratio:4/3;transform:translate(-50%,-50%);z-index:2}
+.stack .sc{position:absolute;left:50%;top:50%;width:100%;border-radius:6px;overflow:hidden;box-shadow:0 30px 60px -28px rgba(0,0,0,.45);transition:transform 1s cubic-bezier(.2,.8,.2,1);display:block;background:#fff;transform:translate(-50%,-50%)}
+.stack .sc[data-pos="0"]{z-index:1}.stack .sc[data-pos="1"]{z-index:2}.stack .sc[data-pos="2"]{z-index:3}.stack .sc[data-pos="3"]{z-index:4}.stack .sc[data-pos="4"]{z-index:5}.stack .sc[data-pos="5"]{z-index:6}
+.stack .sc img{display:block;width:100%;height:100%;object-fit:contain}
+.stack .sc[data-pos="0"]{transform:translate(-50%,-50%) rotate(-11deg) translate(-9%,5%)}
+.stack .sc[data-pos="1"]{transform:translate(-50%,-50%) rotate(10deg) translate(9%,-6%)}
+.stack .sc[data-pos="2"]{transform:translate(-50%,-50%) rotate(7deg) translate(6%,-3%)}
+.stack .sc[data-pos="3"]{transform:translate(-50%,-50%) rotate(-6deg) translate(-5%,2%)}
+.stack .sc[data-pos="4"]{transform:translate(-50%,-50%) rotate(3deg) translate(2%,-2%)}
+.stack .sc[data-pos="5"]{transform:translate(-50%,-50%) rotate(-1.5deg)}
+.stack:hover .sc[data-pos="0"]{transform:translate(-50%,-50%) rotate(-18deg) translate(-62%,10%)}
+.stack:hover .sc[data-pos="1"]{transform:translate(-50%,-50%) rotate(16deg) translate(62%,-6%)}
+.stack:hover .sc[data-pos="2"]{transform:translate(-50%,-50%) rotate(10deg) translate(36%,-16%)}
+.stack:hover .sc[data-pos="3"]{transform:translate(-50%,-50%) rotate(-10deg) translate(-36%,-12%)}
+.stack:hover .sc[data-pos="4"]{transform:translate(-50%,-50%) rotate(5deg) translate(14%,-4%)}
+.stack:hover .sc[data-pos="5"]{transform:translate(-50%,-50%) rotate(-3deg) translate(-12%,4%)}
+.stack .pn{font-size:clamp(10px,1.1vw,15px)}
+.h2-name{position:absolute;left:calc(var(--pad) - .04em);bottom:clamp(10px,1.6vw,24px);font-weight:600;font-size:clamp(56px,12.4vw,224px);letter-spacing:-.065em;line-height:.8;white-space:nowrap;z-index:1}
+.h2-name sup{font-size:.28em;vertical-align:top;position:relative;top:.12em;letter-spacing:0;margin-left:.04em}
+.h2-meta{position:absolute;right:calc(76px + var(--pad));bottom:calc(clamp(10px,1.6vw,24px) + clamp(44px,9.6vw,172px));text-align:right;font-weight:600;font-size:clamp(14px,1.3vw,20px);letter-spacing:-.02em}
+.h2-meta span{display:block;font-weight:400;color:#555;font-size:13px;margin-top:4px}
+@media (max-width:980px){.hero2{padding-right:56px}.h2-top{right:56px;grid-template-columns:1fr auto}.h2-nav{display:none}.h2-menu{display:block}.h2-tag{display:none}.stack{width:72vw;top:42%;left:calc(50% - 28px)}}
+@media (max-width:760px){
+  .ft .copy{text-align:left}
+  .proc .ptabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:0;border-top:0;gap:0;row-gap:0}
+  .proc .ptabs::-webkit-scrollbar{display:none}
+  .proc .ptab{flex:0 0 46%;scroll-snap-align:start;border-top:1px solid var(--ink);padding:16px 14px 6px 0;margin-top:0}
+  .proc .ptab.on{border-top:3px solid var(--ink);padding-top:14px}
+  .proc-head h2 br{display:none}
+  .proc-head h2{white-space:nowrap;font-size:clamp(40px,13.5vw,72px)}
+  .brief .req{display:none}
+  .side{display:none}
+  .hero2,.intro,.svc,.proj,.oci,.proc{padding-right:var(--pad)!important}
+  .pp{padding-right:0!important}
+  .hero2{padding-right:0!important;min-height:560px;height:86svh}
+  .h2-top{right:0;padding:22px var(--pad)}
+  .stack{left:50%;top:47%;width:94vw}
+  .stack .sc{border-radius:4px}
+  .h2-name{font-size:16.4vw;font-weight:700;letter-spacing:-.06em;left:var(--pad);bottom:max(18px,3svh)}
+}
+
+/* project panels (shown until real images load) */
+.pn{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:7%;overflow:hidden}
+.pn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
+.pn small{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;position:relative;z-index:1;opacity:.75}
+.pn .big{font-weight:800;letter-spacing:-.06em;line-height:.86;position:relative;z-index:1;font-size:2.2em}
+.pn-elm{background:#efece6;color:#111}
+.pn-elm .big{text-transform:uppercase}
+.pn-elm::after{content:"";position:absolute;right:-18%;bottom:-18%;width:70%;aspect-ratio:1;border-radius:50%;background:repeating-linear-gradient(0deg,rgba(0,0,0,.09) 0 2px,transparent 2px 13px),repeating-linear-gradient(90deg,rgba(0,0,0,.09) 0 2px,transparent 2px 13px)}
+.pn-sup{background:linear-gradient(150deg,#efe9ff,#d6caff);color:#1d1550}
+.pn-sup::after{content:"";position:absolute;right:10%;bottom:-14%;width:34%;aspect-ratio:9/18;background:#fff;border:5px solid #1d1550;border-radius:22px}
+.pn-tt{background:radial-gradient(120% 90% at 70% 10%,#1d2d73 0%,#0b1233 55%,#060a1c 100%);color:#fff}
+.pn-tt .big{text-transform:uppercase}
+.pn-tt::after{content:"";position:absolute;right:12%;top:26%;width:42%;aspect-ratio:1;border-radius:50%;border:8px solid rgba(255,255,255,.08);border-top-color:#4d6bff;border-right-color:#4d6bff}
+.pn-paf{background:#fff;color:#E2511E}
+.pn-paf .big{text-transform:uppercase}
+.pn-paf small{color:#111}
+.pn-paf::after{content:"";position:absolute;right:-10%;top:16%;width:62%;aspect-ratio:1;background:radial-gradient(circle at 35% 35%,#ffb347,#e2511e 55%,#a92c0b);border-radius:46% 54% 60% 40%/50% 42% 58% 50%}
+.pn-lap{background:linear-gradient(160deg,#fde9ec,#f6c9d2);color:#5a1e2e}
+.pn-lap::after{content:"";position:absolute;right:-12%;bottom:-12%;width:64%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff 0,#f3b3c1 60%,#e58ea3)}
+.pn-vid{background:#0b0b0b;color:#fff}
+.pn-vid .big{text-transform:uppercase}
+.pn-vid::after{content:"101";position:absolute;right:8%;top:22%;font-weight:800;font-size:4.2em;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px #fff}
+.pn.has-img::after{display:none}
+.pn.has-img>small,.pn.has-img>.big{display:none}
+.mosaic .pn{font-size:clamp(10px,1.1vw,16px)}
+
+/* ============ INTRO / SERVICES (cream) ============ */
+.intro{padding:16vh var(--pad) 12vh;padding-right:calc(var(--pad) + 76px);display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad)}
+.intro .lbl{grid-column:1/span 3;font-weight:600;font-size:15px}
+.intro h2{grid-column:4/span 9;font-weight:600;font-size:clamp(34px,4.6vw,76px);letter-spacing:-.05em;line-height:1}
+.intro h2 em{font-style:normal}
+.intro h2 em .w{color:#c4c4c4;transition:color .35s}
+.intro h2 em .w.on{color:var(--ink)}
+.svc{padding:0 var(--pad) 16vh;padding-right:calc(var(--pad) + 76px);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--pad)}
+.svc>div{border-top:2px solid var(--ink);padding-top:18px}
+.svc .k{font-weight:600;font-size:14px;color:#8a8a8a}
+.svc h3{font-weight:600;font-size:clamp(22px,1.9vw,30px);letter-spacing:-.04em;line-height:1.05;margin:10px 0 12px}
+.svc p{font-size:15px;color:#555}
+
+/* ============ PROJECTS — grain list ============ */
+.proj{position:relative;background:var(--grain);padding:8vh var(--pad) 14vh;padding-right:calc(var(--pad) + 76px);isolation:isolate}
+.proj::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;mix-blend-mode:multiply;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.proj-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px;margin-bottom:9vh}
+.webtag{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:#8a8a8a;letter-spacing:-.02em}
+.webtag i{width:16px;height:14px;border-radius:3px;border:2px solid #8a8a8a;display:inline-block}
+.webtag i:first-of-type{background:#8a8a8a}
+.bigarrow{width:70px;height:70px;color:#8a8a8a}
+.proj-strip{height:120px;width:min(46vw,760px);border-radius:6px;overflow:hidden;position:relative;transform:skewX(-6deg);background:linear-gradient(100deg,#111,#555 45%,#d9d9d9 75%,#f5f5f5)}
+.proj-strip span{display:none}
+.count{font-weight:800;font-size:18px;align-self:start;justify-self:end}
+.plist{border-bottom:1px solid #d0d0d0}
+.prow{width:100%;display:grid;grid-template-columns:1fr 200px 200px 170px 60px;align-items:center;gap:20px;padding:20px 18px;border-top:1px solid #d0d0d0;text-align:left;transition:background .35s,color .35s;position:relative}
+.prow:hover,.prow:focus-visible{background:var(--dark);color:#fff;outline:0}
+.prow .nm{display:flex;align-items:flex-start;gap:6px}
+.prow sup{font-weight:600;font-size:15px;padding-top:.3em;letter-spacing:-.02em}
+.prow h3{font-weight:800;font-size:clamp(30px,4vw,64px);text-transform:uppercase;letter-spacing:-.055em;line-height:.95}
+.prow .c{font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:-.02em}
+.prow .th{position:relative;height:96px;display:flex;justify-content:flex-end}
+.prow .th img{height:100%;width:auto;max-width:100%;object-fit:contain;border-radius:6px;box-shadow:0 6px 18px -8px rgba(0,0,0,.35);background:#fff}
+.prow .th .pn{font-size:7px;padding:10px}
+.prow .ar{width:46px;height:46px;transition:transform .35s}
+.prow:hover .ar{transform:translate(4px,4px)}
+.prow.soon{opacity:.45;cursor:default}
+.prow.soon:hover{background:none;color:inherit}
+
+/* ============ NUMBERS — OCI ============ */
+.oci{background:var(--oci-bg);color:var(--oci);font-family:var(--f);font-weight:600;padding:var(--pad);padding-right:calc(var(--pad) + 76px)}
+.oci-head{display:flex;justify-content:space-between;align-items:stretch;border-bottom:1px solid var(--oci)}
+.oci-badge{display:flex;align-items:center;gap:18px;background:var(--oci);color:#fff;padding:18px 26px;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--pad)}
+.oci-badge svg{width:34px;height:34px}
+.oci-head .r{border-left:1px solid var(--oci);width:30%;display:flex;align-items:flex-start;justify-content:flex-end;padding-left:var(--pad)}
+.oci-head .r span{font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.oci-row{display:grid;grid-template-columns:26% 1fr;min-height:92vh;border-bottom:1px solid var(--oci)}
+.oci-row:last-child{border-bottom:0}
+.oci-row .l{border-right:1px solid var(--oci);padding:22px 0;font-size:16px;text-transform:uppercase;display:flex;flex-direction:column;justify-content:space-between}
+.oci-row .l small{font-size:12px;opacity:.7;max-width:220px;text-transform:none}
+.oci-row .rr{position:relative;padding:22px 0 60px 12%;display:flex;flex-direction:column;justify-content:center}
+.oci-row .tagr{position:absolute;right:0;top:22px;font-size:16px}
+.oci-row .num{font-family:var(--f);font-weight:600;font-size:clamp(160px,27vw,460px);letter-spacing:-.04em;line-height:.85}
+.oci-row .num sup{font-size:.35em;vertical-align:top;position:relative;top:.15em}
+.oci-row p{font-size:clamp(14px,1.25vw,19px);text-transform:uppercase;line-height:1.5;max-width:560px;margin-top:5vh;letter-spacing:.01em}
+
+/* ============ PROCESS — tabs ============ */
+.proc{padding:16vh var(--pad);padding-right:calc(var(--pad) + 76px)}
+.proc-head{display:grid;grid-template-columns:repeat(12,1fr);margin-bottom:8vh}
+.proc-head h2{grid-column:1/span 6;font-weight:800;font-size:clamp(56px,8vw,140px);letter-spacing:-.065em;line-height:.85}
+.proc-head p{grid-column:9/span 4;align-self:end;color:#555;font-size:15px}
+.ptabs{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink)}
+.ptab{text-align:left;padding:18px 16px 0 0;color:#bbb;transition:color .25s;border-top:3px solid transparent;margin-top:-2px}
+.ptab .no{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+.ptab .pt{font-size:clamp(16px,1.5vw,22px);font-weight:600;letter-spacing:-.03em}
+.ptab.on{color:var(--ink);border-top-color:var(--ink)}
+.pbody{display:grid;grid-template-columns:repeat(12,1fr);margin-top:9vh;min-height:220px}
+.pbody .big{grid-column:1/span 3;font-size:clamp(100px,14vw,220px);font-weight:800;letter-spacing:-.08em;line-height:.8}
+.pbody .txt{grid-column:5/span 7;align-self:end}
+.pbody h3{font-size:clamp(30px,3.6vw,56px);font-weight:600;letter-spacing:-.05em;line-height:1;margin-bottom:16px}
+.pbody p{font-size:17px;color:#333;max-width:46ch}
+.fade{animation:fd .5s ease}
+@keyframes fd{from{opacity:0;transform:translateY(10px)}}
+
+/* ============ FOOTER — Alaïa ============ */
+.ft{background:#000;color:#fff;border-radius:22px 22px 0 0;padding:var(--pad);overflow:hidden;position:relative;z-index:31}
+.ft-grid{display:grid;grid-template-columns:330px 1fr;gap:4vw;align-items:start}
+.brief{background:#fff;color:#000;padding:14px 14px 16px;font-size:12px}
+.brief .dots{font-size:12px;letter-spacing:-.1em}
+.brief h4{font-family:var(--f);font-weight:600;font-size:22px;letter-spacing:.01em;text-transform:uppercase;margin:4px 0 34px}
+.brief label{display:block;border-bottom:1px solid #000;padding:9px 0 4px;color:#777}
+.brief input,.brief select{width:100%;border:0;outline:0;font:inherit;color:#000;background:transparent;padding:2px 0}
+.brief .last{display:flex;gap:10px;align-items:end}
+.brief .last input{flex:1}
+.brief button{font-size:11px;text-transform:uppercase;font-weight:600;white-space:nowrap;padding-bottom:3px}
+.brief p{margin-top:8px;line-height:1.4}
+.brief .sendrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.brief .sendrow a,.brief .sendrow button{border:1px solid #000;padding:6px 10px;font-size:11px;font-weight:600;text-transform:uppercase;text-decoration:none}.brief .sendrow a:first-child{background:#000;color:#fff}.brief .ok{color:#000;font-weight:600;display:none}
+.cols{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;font-size:12px}
+.cols b{display:block;font-weight:400;text-transform:uppercase;margin-bottom:14px;letter-spacing:.02em}
+.cols a,.cols span{display:block;margin-bottom:6px;font-weight:600}
+.cols a:hover{text-decoration:underline}
+.mark{font-family:var(--f);font-weight:800;font-size:clamp(90px,21vw,400px);line-height:.8;letter-spacing:-.04em;display:flex;justify-content:space-between;margin:20vh -0.02em 4vh;letter-spacing:0}
+.copy{text-align:right;font-size:11px;padding:16vh 0 6px}
+
+/* ============ PROJECT PAGE ============ */
+.pp{background:var(--cream);min-height:100vh;padding-right:76px}
+.pp-top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px var(--pad);background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #e7e7e7}
+.back{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:16px}
+.pp-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.pp-tabs a{font-weight:600;font-size:14px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink)}
+.pp-tabs a.on{background:var(--ink);color:var(--cream)}
+.pp-hero{padding:8vh var(--pad) 5vh;display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad)}
+.pp-hero .idx{grid-column:1/-1;font-weight:600;font-size:15px;color:#8a8a8a}
+.pp-hero h1{grid-column:1/span 9;font-weight:800;font-size:clamp(60px,11vw,190px);letter-spacing:-.065em;line-height:.82;text-transform:uppercase}
+.pp-hero .uw{grid-column:1/span 7;font-weight:600;font-size:clamp(18px,1.6vw,24px);letter-spacing:-.03em;color:#555;margin-top:10px}
+.pp-cover{position:relative;margin:0 var(--pad);overflow:hidden}
+.pp-cover img{display:block;width:100%;height:auto}
+.pp-facts{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad);padding:6vh var(--pad);border-bottom:1px solid #e7e7e7}
+.pp-facts>div{grid-column:span 3;font-size:15px}
+.pp-facts b{display:block;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#8a8a8a;margin-bottom:8px}
+.pp-facts .tg{display:flex;flex-wrap:wrap;gap:6px}
+.pp-facts .tg span{border:1.5px solid var(--ink);border-radius:999px;padding:4px 11px;font-size:13px;font-weight:600}
+.pp-desc{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad);padding:8vh var(--pad)}
+.pp-desc h2{grid-column:1/span 3;font-weight:600;font-size:15px}
+.pp-desc .txt{grid-column:4/span 8;font-weight:600;font-size:clamp(24px,2.5vw,40px);letter-spacing:-.04em;line-height:1.12}
+.pp-blocks{padding:0 var(--pad) 6vh}
+.pb{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--pad);padding:4vh 0;border-top:1px solid #e7e7e7}
+.pb h3{grid-column:1/span 3;font-weight:600;font-size:15px}
+.pb .c{grid-column:4/span 7;font-size:clamp(17px,1.4vw,21px);line-height:1.45;color:#222}
+.pb ul{list-style:none;display:grid;gap:8px}
+.pb li::before{content:"↘ ";color:#8a8a8a}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:var(--pad);padding:2vh var(--pad) 8vh}
+.gal img{width:100%;height:auto;background:#efefef}
+.gal img.wide{grid-column:1/-1}
+.pp-next{display:flex;justify-content:space-between;align-items:center;padding:6vh var(--pad) 10vh;border-top:2px solid var(--ink);margin:0 var(--pad)}
+.pp-next span{font-weight:600;font-size:15px}
+.pp-next a{font-weight:800;font-size:clamp(40px,7vw,120px);letter-spacing:-.06em;text-transform:uppercase;line-height:.9}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}}
+
+@media (max-width:980px){
+  .side{width:56px;border-left-width:8px}
+  .side .vt{font-size:20px}
+  .hero,.intro,.svc,.proj,.oci,.proc{padding-right:calc(var(--pad) + 56px)}
+  .pp{padding-right:56px}
+  .topnav{grid-template-columns:auto auto}
+  .links{display:none}
+  .mosaic{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(4,160px)}
+  .t1{grid-column:1/-1;grid-row:1}
+  .t2{grid-column:1/span 3;grid-row:2}
+  .t3{grid-column:4/span 3;grid-row:2}
+  .t4{grid-column:1/span 3;grid-row:3/span 2}
+  .t5{grid-column:4/span 3;grid-row:3}
+  .t6{display:none}
+  .t7{grid-column:4/span 3;grid-row:4}
+  .welcome{grid-column:1/-1;margin-bottom:10px}
+  .hf{grid-column:span 6}
+  .intro .lbl,.intro h2{grid-column:1/-1}
+  .svc{grid-template-columns:1fr 1fr}
+  .proj-top{grid-template-columns:1fr auto}
+  .proj-strip,.bigarrow{display:none}
+  .prow{grid-template-columns:1fr 90px 36px;padding:16px 10px}
+  .prow .c{display:none}
+  .prow .th{height:64px}
+  .prow .ar{width:30px;height:30px}
+  .oci-head .r{display:none}
+  .oci-row{grid-template-columns:1fr;min-height:auto}
+  .oci-row .l{border-right:0;border-bottom:1px solid var(--oci);flex-direction:row;gap:20px}
+  .oci-row .rr{padding:40px 0}
+  .proc-head h2,.proc-head p{grid-column:1/-1}
+  .proc-head p{margin-top:20px}
+  .ptabs{grid-template-columns:repeat(3,1fr);row-gap:20px}
+  .pbody .big,.pbody .txt{grid-column:1/-1}
+  .ft-grid{grid-template-columns:1fr}
+  .cols{grid-template-columns:1fr 1fr}
+  .pp-hero h1,.pp-hero .uw,.pp-desc h2,.pp-desc .txt,.pb h3,.pb .c{grid-column:1/-1}
+  .pp-facts>div{grid-column:span 6}
+  .gal{grid-template-columns:1fr}
+  .pp-tabs{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="mmenu" id="mmenu" aria-hidden="true">
+  <div class="mmenu-top"><span class="b">Yuliia Hruba<sup>®</sup></span><button id="closeM">Close</button></div>
+  <nav><a href="#projects">Projects</a><a href="#services">Services</a><a href="#numbers">Numbers</a><a href="#process">Process</a><a href="#contact">Contact</a></nav>
+</div>
+<div class="page">
+<aside class="side" aria-label="Status"><div class="side-in">
+  <a href="#home" class="burger" aria-label="Home"><i></i><i></i><i></i></a>
+  <span class="vt"><span class="dot"></span>Open for new projects</span>
+</div></aside>
+
+<!-- ===================== HOME ===================== -->
+<main class="view" id="home-view">
+
+<section class="hero2" id="home">
+  <div class="h2-top">
+    <a href="#home" class="h2-brand">Yuliia Hruba<sup>®</sup></a>
+    <nav class="h2-nav"><a href="#projects">Projects</a><a href="#services">Services</a><a href="#numbers">Numbers</a><a href="#process">Process</a><a href="#contact">Contact</a></nav>
+    <button class="h2-menu" id="openM" aria-expanded="false" aria-controls="mmenu">Menu</button>
+  </div>
+  <div class="h2-tag"><b>UI/UX Designer</b>E‑commerce, SaaS &amp; mobile apps — designed in Figma, built to convert.</div>
+  <div class="stack" id="stack"></div>
+  <h1 class="h2-name">Yuliia Hruba<sup>®</sup></h1>
+</section>
+
+<section class="intro" id="services">
+  <div class="lbl rv">About</div>
+  <h2 class="rv" id="aboutFill">Your store gets traffic, but visitors don't buy? <em>I design e‑commerce websites, product pages, SaaS and mobile apps in Figma that look premium and are built to convert.</em></h2>
+</section>
+<section class="svc">
+  <div class="rv"><span class="k">01</span><h3>E‑commerce &amp; CRO</h3><p>UX audits, user interviews and competitor analysis, then product pages, bundles and checkout flows with clear prices, trust elements and strong CTAs.</p></div>
+  <div class="rv"><span class="k">02</span><h3>Web Design &amp; Redesign</h3><p>Responsive web design, landing pages and website redesigns for brands that want to stand out.</p></div>
+  <div class="rv"><span class="k">03</span><h3>Mobile &amp; SaaS</h3><p>iOS and Android apps and SaaS products: dashboards, reports, onboarding and settings.</p></div>
+  <div class="rv"><span class="k">04</span><h3>Figma &amp; Design Systems</h3><p>Developer‑friendly files: components, auto layout, UI kits and every state designed upfront.</p></div>
+</section>
+
+<section class="proj" id="projects">
+  <div class="proj-top">
+    <span class="webtag">WEB · MOBILE <i></i><i></i></span>
+    <svg class="bigarrow" viewBox="0 0 70 70" fill="none" stroke="currentColor" stroke-width="9"><path d="M8 8 L60 60 M60 18 V60 H18"/></svg>
+    <span class="count">006</span>
+  </div>
+  <div class="plist" id="plist"></div>
+</section>
+
+<section class="oci" id="numbers">
+  <div class="oci-head">
+    <div class="oci-badge">
+      <svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2"><circle cx="20" cy="20" r="14"/><path d="M20 2v36M2 20h36"/></svg>
+      Yuliia Hruba — UI/UX Design
+    </div>
+    <div class="r"><span>Kyiv · Worldwide</span></div>
+  </div>
+  <div class="oci-row">
+    <div class="l"><span>Numbers</span><small>Figures from Yuliia's profile and project work.</small></div>
+    <div class="rr"><span class="tagr">[YH.1]</span><div class="num rv">3<sup>+</sup></div><p class="rv">Years in UI/UX design — e‑commerce websites, product pages, SaaS and mobile apps, from research to developer handoff.</p></div>
+  </div>
+  <div class="oci-row">
+    <div class="l"><span>Projects</span><small>E‑commerce, subscription brands, fashion, beauty, pet products and productivity apps.</small></div>
+    <div class="rr"><span class="tagr">[YH.2]</span><div class="num rv">6<sup>+</sup></div><p class="rv">Design projects delivered, each one built around a business goal: subscriptions, order value and sign‑ups.</p></div>
+  </div>
+  <div class="oci-row">
+    <div class="l"><span>Research</span><small>Lapunzel — pet cosmetics e‑commerce.</small></div>
+    <div class="rr"><span class="tagr">[YH.3]</span><div class="num rv">150K</div><p class="rv">Monthly views on a store with low conversion. Five weeks of UX research, interviews and usability testing turned into a simpler, more trustworthy redesign.</p></div>
+  </div>
+</section>
+
+<section class="proc" id="process">
+  <div class="proc-head rv">
+    <h2>How I <br>Work</h2>
+    <p>Six clear steps, from your goals to developer handoff. Your project lives in Figma, open to you at any time.</p>
+  </div>
+  <div class="ptabs" id="ptabs" role="tablist"></div>
+  <div class="pbody" id="pbody"></div>
+</section>
+</main>
+
+<!-- ===================== PROJECT PAGE ===================== -->
+<main class="view pp" id="project-view" hidden>
+  <div class="pp-top">
+    <a href="#projects" class="back">← All projects</a>
+    <nav class="pp-tabs" id="ppTabs"></nav>
+  </div>
+  <div id="ppBody"></div>
+</main>
+
+</div>
+<!-- ===================== FOOTER ===================== -->
+<footer class="ft" id="contact">
+  <div class="ft-grid">
+    <form class="brief" id="brief" novalidate>
+      <div class="dots">●●</div>
+      <h4>Start a project</h4>
+      <label>Project type
+        <select id="bType"><option>E‑commerce / CRO</option><option>Website redesign</option><option>Landing page</option><option>Mobile app</option><option>SaaS / Dashboard</option></select>
+      </label>
+      <label>Your name*<input id="bName" autocomplete="name"></label>
+      <label>Website or app link<input id="bLink" placeholder="https://"></label>
+      <label class="last"><input id="bMsg" placeholder="Where do users get stuck?*"><button type="submit">▸ Send</button></label>
+      <p class="req">*Required. Your brief goes to <b>yulia11079717@gmail.com</b>.</p>
+      <div class="ok" id="bOk">
+        <p><b>Your brief is ready.</b> Choose how to send it to yulia11079717@gmail.com:</p>
+        <div class="sendrow">
+          <a id="gmailLink" href="#" target="_blank" rel="noopener">Send with Gmail ↗</a>
+          <a id="mailLink" href="mailto:yulia11079717@gmail.com" target="_blank" rel="noopener">Email app ↗</a>
+          <button type="button" id="cpBrief">Copy brief</button>
+        </div>
+      </div>
+    </form>
+    <div class="cols">
+      
+      <div><b>Projects</b><a href="#elm-forge">Elm &amp; Forge</a><a href="#suppdog">Suppdog</a><a href="#time-tracker">Time Tracker</a><a href="#pafory">Pafory</a><a href="#lapunzel">Lapunzel</a><a href="#vidtam">VidTam</a></div>
+      <div><b>Services</b><span>E‑commerce &amp; CRO</span><span>Web design</span><span>Mobile &amp; SaaS</span><span>Design systems</span></div>
+      <div><b>Navigate</b><a href="#home">Home</a><a href="#projects">Projects</a><a href="#numbers">Numbers</a><a href="#process">Process</a></div>
+      <div><b>Follow &amp; hire</b><a href="https://www.behance.net/yuliiahruba" target="_blank" rel="noopener">Behance ↗</a><a href="https://www.fiverr.com/s/8xyBvEE" target="_blank" rel="noopener">Fiverr ↗</a><a href="https://www.upwork.com/freelancers/~01eb8727eeabdfa0cb" target="_blank" rel="noopener">Upwork ↗</a></div>
+    </div>
+  </div>
+  <div class="copy">Copyright © 2026 Yuliia Hruba. All Rights Reserved.</div>
+</footer>
+
+<script>
+const UP = "https://www.upwork.com/freelancers/~01eb8727eeabdfa0cb";
+// Images: put files in images/<project-id>/ — cover.jpg plus g01.jpg, g02.jpg … (count = gallery).
+const P = [
+  {id:"elm-forge", name:"Elm & Forge", pn:"elm", label:"Natural Weave", cat:"Fashion E‑commerce", plat:"Web", gallery:14,
+   upTitle:"UI UX Designer for Fashion Ecommerce Website | Figma | Web Design",
+   role:"UI UX Designer, Web Designer, UX Researcher, Figma Designer",
+   tags:["Ecommerce","UX & UI Design","Figma","Web Design","User Experience Design"],
+   desc:"As a UI UX Designer, I created a premium e-commerce website design in Figma for Elm & Forge, a minimalist apparel brand with a “less, but better” philosophy. My UX process: competitor analysis, user personas, CJM, sitemap, user flow and wireframes, then moodboard, styleboard, UI kit and animation. Concept “Natural Weave”: a grid system inspired by fabric. Result: an editorial, minimalist web design with clear navigation, storytelling and trust elements built to drive conversion and customer loyalty.",
+   blocks:[["UX process",["Competitor analysis and user personas","Customer journey map, sitemap and user flow","Wireframes, moodboard, styleboard, UI kit and animation"]],["Concept","“Natural Weave” — a grid system inspired by fabric."],["Result","An editorial, minimalist web design with clear navigation, storytelling and trust elements built to drive conversion and customer loyalty."]]},
+  {id:"suppdog", name:"Suppdog", pn:"sup", label:"Probiotics+", cat:"CRO · Product Page", plat:"Mobile web", gallery:9,
+   upTitle:"UI UX Designer for Ecommerce Product Page Redesign | CRO | Mobile UI",
+   role:"UI UX Designer, CRO Designer, Mobile UI Designer, Ecommerce Web Designer, UX Auditor",
+   tags:["Conversion Rate Optimization","Website Redesign","Mobile UI Design","Ecommerce Website","UX & UI Design"],
+   desc:"As a UI UX Designer, I ran a UX audit and mobile product page redesign for Suppdog, a pet supplement e-commerce brand, focused on conversion rate optimization. Goal: more subscriptions, higher order value and a mobile-first page that moves shoppers to buy. Solution: benefit-led first screen, sticky price bar, bundles with volume discounts and price per day, a pre-selected subscription with a clear price timeline, a symptom picker, a 3-step “how it works” and a trust-first FAQ. Result: a conversion-focused e-commerce web design with transparent pricing.",
+   blocks:[["Goal","More subscriptions, higher order value and a mobile‑first page that moves shoppers to buy."],["Solution",["Benefit‑led first screen and sticky price bar","Bundles with volume discounts and price per day","Pre‑selected subscription with a clear price timeline","Symptom picker, 3‑step “how it works” and a trust‑first FAQ"]],["Result","A conversion‑focused e‑commerce web design with transparent pricing."]]},
+  {id:"time-tracker", name:"Time Tracker", pn:"tt", label:"Time Tracker", cat:"Mobile App", plat:"iOS & Android", gallery:8,
+   upTitle:"UI UX Designer for Time Tracking Mobile App | iOS & Android | Figma",
+   role:"UI UX Designer, Mobile App Designer, Product Designer, Figma Expert",
+   tags:["Mobile App Design","Mobile UI Design","UI/UX Prototyping","UX & UI Design","Figma"],
+   desc:"As a UI UX Designer, I designed a dark-mode time tracking mobile app for iOS and Android in Figma (UI/UX test task for ZentixSoft). Goal: one tap to start a timer, tasks at a glance and easy editing of logged time. I mapped the user flow, then built high-fidelity mobile UI design screens, a reusable component library with all states and a clickable prototype. To test the design system, I added 6 more screens: onboarding, timer, week view, reports, projects and settings. Result: a scalable productivity app UI with one clear accent and states designed upfront.",
+   blocks:[["Goal","One tap to start a timer, tasks at a glance and easy editing of logged time."],["Process",["Mapped the user flow","High‑fidelity mobile UI screens","Reusable component library with all states","Clickable prototype"]],["Design system test","6 more screens: onboarding, timer, week view, reports, projects and settings."],["Result","A scalable productivity app UI with one clear accent and states designed upfront."]]},
+  {id:"pafory", name:"Pafory", pn:"paf", label:"Pafory", cat:"Subscription E‑commerce", plat:"Web + Mobile", gallery:15,
+   upTitle:"UI UX Designer for Subscription Ecommerce Website Redesign | Figma",
+   role:"UI UX Designer, Web Designer, Mobile UI Designer, Figma Designer",
+   tags:["Website Redesign","Responsive Design","UX & UI Design","Mobile UI Design"],
+   desc:"As a UI UX Designer, I led the e-commerce website redesign in Figma for Pafory, a perfume subscription service. Goal: make the website part of the product and clearly explain the subscription value. I designed 13 desktop screens plus responsive mobile UI design: shop by mood, a visual scent quiz with a personal profile, pricing plans and story-card reviews. Concept: perfume served like a cocktail, a bright, playful UI full of liquid motion. Result: a clear user flow from scent quiz to subscription plan.",
+   blocks:[["Goal","Make the website part of the product and clearly explain the subscription value."],["What I designed",["13 desktop screens plus responsive mobile UI","Shop by mood","A visual scent quiz with a personal profile","Pricing plans and story‑card reviews"]],["Concept","Perfume served like a cocktail — a bright, playful UI full of liquid motion."],["Result","A clear user flow from scent quiz to subscription plan."]]}
+,
+  {id:"lapunzel", name:"Lapunzel", pn:"lap", label:"Lapunzel", cat:"Pet Cosmetics E‑commerce", plat:"Web + Mobile", gallery:10,
+   upTitle:"UI UX Designer for Pet Ecommerce Website Redesign | Figma | Web Design",
+   role:"UI UX Designer, UX Researcher, Web Designer, Figma Designer",
+   tags:["Website Redesign","UX Research","Figma","UX & UI Design","Conversion Rate Optimization"],
+   desc:"As a UI UX Designer, I led a website redesign in Figma for Lapunzel, a pet cosmetics e-commerce brand. Problem: 150,000 monthly views but low conversion. Goal: find what stops users from buying and build trust. In 5 weeks I ran UX research (desk research, competitor analysis, in-depth interviews, surveys), mapped the user flow, created wireframes, an interactive prototype and the UI design, then ran usability testing. Result: a simplified, trustworthy e-commerce web design focused on conversion rate optimization.",
+   blocks:[["Problem","The website had decent traffic — 150,000 views per month — but minimal conversions. Users visited product pages and left without buying: something scared them off."],["Goal","Find out what turns users off through in‑depth interviews with the target audience, and simplify the interface so the site inspires trust instead of looking like a scam."],["Process · 5 weeks",["Research (3 days): brief, desk research, competitor analysis","UX stage (2 weeks): in‑depth user interviews, survey research, user flow, wireframing","UI design (2 weeks): interactive prototype and visual interface design","Usability testing (1 week): user feedback to find and fix usability issues"]],["Screens",["Home, catalogue and blog","Product page, product details and “You may like”","Reviews and review list","Mobile home, catalogue, blog, product card and reviews"]],["Result","A simplified, trustworthy e‑commerce design with clear navigation, trust elements and a smoother path to purchase — built to turn existing traffic into buyers."]]},
+  {id:"vidtam", name:"VidTam", pn:"vid", label:"VidTam", cat:"Fashion Marketplace", plat:"Web + Mobile", gallery:9,
+   upTitle:"UI UX Designer for Ecommerce Marketplace Landing Page | Figma | Web Design",
+   role:"UI UX Designer, Web Designer, Visual Designer",
+   tags:["Landing Page Design","Web Design","UX Research","Figma","Ecommerce Website"],
+   desc:"VidTam is an online marketplace of Ukrainian fashion brands. It connects local brands with a wider audience and encourages shoppers to buy from local manufacturers. I designed a user-friendly landing page in Figma that boosts brand visibility, makes shopping easy and enjoyable, drives direct purchases on brand websites and invites small and medium-sized businesses to join.",
+   blocks:[["Goal","Create a user‑friendly marketplace landing page that boosts brand visibility, drives direct purchases on brand websites and invites small and medium‑sized businesses to join."],["Process",["UX research: user needs and market demand for local products","Wireframing: page structure and user flow","UI/UX prototyping: high‑fidelity Figma prototype with intuitive navigation","Usability testing to refine the design and user experience"]],["Landing page",["Hero and “How VidTam works” in 3 steps: browse brands, go to the brand's website, place your order","“New brands on VidTam” and a live brand counter","“We work to get you recognized” with an “Add your brand to the platform” call to action"]],["Dynamic logo","The number in the logo shows the live count of brands on the marketplace — for example, “101 brands already on VidTam”."],["Visual identity","Identity and motion created in Photoshop, Illustrator and After Effects."],["Result","A modern, minimalist landing page with a clear 3‑step user flow — from browsing brands to ordering on the brand's own website."]]}
+];
+const SOON=[];
+const HERO={"elm-forge":[1400,763],"suppdog":[1400,980],"time-tracker":[1400,1050],"pafory":[1400,1050],"lapunzel":[1400,805],"vidtam":[1400,1003]};
+const heroImg=(p,cls="")=>`<img class="${cls}" src="images/hero/${p.id}.jpg" alt="${p.name}" width="${HERO[p.id][0]}" height="${HERO[p.id][1]}" loading="lazy">`;
+
+const img = (p,f) => `images/${p.id}/${f}`;
+const pad2 = n => String(n).padStart(2,'0');
+
+// A panel that shows the real image when it exists, and a styled cover otherwise.
+function panel(p, file="cover.jpg"){
+  return `<div class="pn pn-${p.pn}"><small>${p.cat}</small><div class="big">${p.label}</div><img src="${img(p,file)}" alt="${p.name}" loading="lazy" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()"></div>`;
+}
+
+// hero card stack
+const ST=[["vidtam",1400,1003],["lapunzel",1400,805],["pafory",1400,1050],["time-tracker",1400,1050],["suppdog",1400,980],["elm-forge",1400,763]];
+document.getElementById('stack').innerHTML=ST.map(([id,w,h])=>{const p=P.find(x=>x.id===id);return `<a class="sc" data-pos="${ST.findIndex(x=>x[0]===id)}" href="#${id}" aria-label="${p.name}" style="aspect-ratio:${w}/${h}"><img src="images/hero/${id}.jpg" alt="${p.name} — ${p.kind||p.cat}"></a>`;}).join('');
+(()=>{const st=document.getElementById('stack');let hover=false;st.addEventListener('mouseenter',()=>hover=true);st.addEventListener('mouseleave',()=>hover=false);
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ setInterval(()=>{ if(hover||reduce||document.hidden) return; st.querySelectorAll('.sc').forEach(c=>{const n=+c.dataset.pos; c.dataset.pos = n===5?0:n+1;}); },2600);})();
+
+// project list (grain)
+const AR=`<svg class="ar" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="6"><path d="M6 6 L38 38 M38 12 V38 H12"/></svg>`;
+document.getElementById('plist').innerHTML =
+  P.map((p,i)=>`<a class="prow" href="#${p.id}"><span class="nm"><sup>${pad2(i+1)}</sup><h3>${p.name}</h3></span><span class="c">${p.cat}</span><span class="c">${p.plat}</span><span class="th">${heroImg(p)}</span>${AR}</a>`).join('') +
+  SOON.map((p,i)=>`<div class="prow soon"><span class="nm"><sup>${pad2(i+5)}</sup><h3>${p.name}</h3></span><span class="c">${p.cat}</span><span class="c">${p.plat}</span><span class="th" style="background:#e4e4e4"></span>${AR}</div>`).join('');
+
+// project page
+const home=document.getElementById('home-view'), pv=document.getElementById('project-view'), body=document.getElementById('ppBody');
+document.getElementById('ppTabs').innerHTML=P.map(p=>`<a href="#${p.id}" data-t="${p.id}">${p.name}</a>`).join('');
+function renderProject(i){
+  const p=P[i], nx=P[(i+1)%P.length];
+  const g=Array.from({length:p.gallery},(_,k)=>`<img src="${img(p,'g'+pad2(k+1)+'.jpg')}" alt="${p.name} — screen ${k+1}" loading="lazy" onerror="this.remove()">`).join('');
+  body.innerHTML=`
+    <section class="pp-hero"><span class="idx">${pad2(i+1)} / ${pad2(P.length)} — ${p.cat}</span><h1>${p.name}</h1><p class="uw">${p.upTitle}</p></section>
+    <div class="pp-cover">${heroImg(p)}</div>
+    <section class="pp-facts">
+      <div><b>Role</b>${p.role}</div><div><b>Category</b>${p.cat}</div><div><b>Platform</b>${p.plat}</div>
+      <div><b>Skills</b><span class="tg">${p.tags.map(t=>`<span>${t}</span>`).join('')}</span></div>
+    </section>
+    <section class="pp-desc"><h2>Project overview</h2><p class="txt">${p.desc}</p></section>
+    <section class="pp-blocks">${p.blocks.map(([h,c])=>`<div class="pb"><h3>${h}</h3><div class="c">${Array.isArray(c)?`<ul>${c.map(x=>`<li>${x}</li>`).join('')}</ul>`:c}</div></div>`).join('')}</section>
+    <section class="gal">${g}</section>
+    <div class="pp-next"><span>Next project</span><a href="#${nx.id}">${nx.name} ↘</a></div>`;
+  document.querySelectorAll('#ppTabs a').forEach(a=>a.classList.toggle('on',a.dataset.t===p.id));
+  document.title=`${p.name} — Yuliia Hruba`;
+}
+function route(){
+  const h=location.hash.slice(1), i=P.findIndex(p=>p.id===h);
+  if(i>=0){ renderProject(i); home.hidden=true; pv.hidden=false; document.body.classList.add('on-project'); scrollTo(0,0); }
+  else {
+    const wasProject=!pv.hidden;
+    pv.hidden=true; home.hidden=false; document.body.classList.remove('on-project'); document.title="Yuliia Hruba — UI/UX Designer";
+    if(h){ const el=document.getElementById(h); if(el) el.scrollIntoView(); } else if(wasProject) scrollTo(0,0);
+    observe();
+  }
+}
+addEventListener('hashchange',route);
+
+// header border on scroll
+const mm=document.getElementById('mmenu'), om=document.getElementById('openM');
+const setM=o=>{mm.classList.toggle('open',o);mm.setAttribute('aria-hidden',!o);om.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';};
+om.addEventListener('click',()=>setM(true)); document.getElementById('closeM').addEventListener('click',()=>setM(false));
+mm.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>setM(false)));
+addEventListener('keydown',e=>{if(e.key==='Escape')setM(false);});
+
+// reveal
+let io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1}):null;
+function observe(){document.querySelectorAll('#home-view .rv:not(.in)').forEach(el=>io?io.observe(el):el.classList.add('in'));}
+route();
+
+
+// process tabs
+const STEPS=[["Discovery","Your goals, users and competitors. We start by listening — understanding what success looks like before anything is drawn."],["UX Research & Audit","UX audits, user interviews and competitor analysis to find exactly where and why users leave."],["Flows & Wireframes","User flow, sitemap and wireframes that turn insights into a clear structure."],["UI & Design System","High‑fidelity UI and a design system in Figma — components, auto layout and every state designed upfront."],["Prototype & Testing","An interactive prototype and usability testing, so decisions are validated before development."],["Handoff & Support","Clean developer handoff and ongoing support, so what gets built matches what was designed."]];
+const tabs=document.getElementById('ptabs'),pb=document.getElementById('pbody');
+tabs.innerHTML=STEPS.map((x,i)=>`<button class="ptab${i?'':' on'}" role="tab" data-i="${i}"><span class="no">0${i+1}</span><span class="pt">${x[0]}</span></button>`).join('');
+function step(i){[...tabs.children].forEach((t,j)=>t.classList.toggle('on',j==i)); if(tabs.scrollWidth>tabs.clientWidth){const t=tabs.children[i]; tabs.scrollTo({left:t.offsetLeft-tabs.firstElementChild.offsetLeft,behavior:'smooth'});}pb.innerHTML=`<div class="big fade">0${+i+1}</div><div class="txt fade"><h3>${STEPS[i][0]}</h3><p>${STEPS[i][1]}</p></div>`;}
+let si=0; step(0); const auto=setInterval(()=>{si=(si+1)%6;step(si);},5000);
+tabs.addEventListener('click',e=>{const t=e.target.closest('.ptab');if(t){clearInterval(auto);step(t.dataset.i);}});
+
+
+// About line fills word by word on scroll
+(()=>{const em=document.querySelector('#aboutFill em'); if(!em) return;
+ em.innerHTML=em.textContent.split(' ').map(w=>`<span class="w">${w}</span>`).join(' ');
+ const ws=[...em.querySelectorAll('.w')];
+ const f=()=>{const r=em.getBoundingClientRect(),vh=innerHeight;const pr=Math.min(1,Math.max(0,(vh*.85-r.top)/(r.height+vh*.3)));const n=Math.round(pr*ws.length);ws.forEach((w,i)=>w.classList.toggle('on',i<n));};
+ addEventListener('scroll',f,{passive:true}); addEventListener('resize',f); f();})();
+
+// footer brief → copy + Upwork
+const MAIL="yulia11079717@gmail.com";
+let BRIEF="";
+document.getElementById('brief').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=bName.value.trim(), m=bMsg.value.trim();
+  if(!n||!m){ (n?bMsg:bName).focus(); return; }
+  const subject=`New project request: ${bType.value} — ${n}`;
+  BRIEF=`Hi Yuliia, I'm ${n}.\n\nProject type: ${bType.value}\nLink: ${bLink.value||'—'}\nWhere users get stuck: ${m}`;
+  const su=encodeURIComponent(subject), bo=encodeURIComponent(BRIEF);
+  document.getElementById('gmailLink').href=`https://mail.google.com/mail/?view=cm&fs=1&to=${MAIL}&su=${su}&body=${bo}`;
+  document.getElementById('mailLink').href=`mailto:${MAIL}?subject=${su}&body=${bo}`;
+  bOk.style.display='block';
+});
+document.getElementById('cpBrief').addEventListener('click',async e=>{
+  try{ await navigator.clipboard.writeText(`To: ${MAIL}\n\n${BRIEF}`); e.target.textContent='Copied ✓'; }catch(_){ e.target.textContent='Copy blocked'; }
+});
+</script>
+</body>
+</html>
