@@ -503,9 +503,10 @@ const P = [
 ];
 const SOON=[];
 const HERO={"elm-forge":[1400,763],"suppdog":[1400,980],"time-tracker":[1400,1050],"pafory":[1400,1050],"lapunzel":[1400,805],"vidtam":[1400,1003]};
-const heroImg=(p,cls="")=>`<img class="${cls}" src="images/hero/${p.id}.jpg" alt="${p.name}" width="${HERO[p.id][0]}" height="${HERO[p.id][1]}" loading="lazy">`;
+const heroImg=(p,cls="")=>`<img class="${cls}" src="images/hero/${p.id}.jpg?v=${V}" alt="${p.name}" width="${HERO[p.id][0]}" height="${HERO[p.id][1]}" loading="lazy">`;
 
-const img = (p,f) => `images/${p.id}/${f}`;
+const V="20261118";
+const img = (p,f) => `images/${p.id}/${f}?v=${V}`;
 const pad2 = n => String(n).padStart(2,'0');
 
 // A panel that shows the real image when it exists, and a styled cover otherwise.
@@ -515,7 +516,7 @@ function panel(p, file="cover.jpg"){
 
 // hero card stack
 const ST=[["vidtam",1400,1003],["lapunzel",1400,805],["pafory",1400,1050],["time-tracker",1400,1050],["suppdog",1400,980],["elm-forge",1400,763]];
-document.getElementById('stack').innerHTML=ST.map(([id,w,h])=>{const p=P.find(x=>x.id===id);return `<a class="sc" data-pos="${ST.findIndex(x=>x[0]===id)}" href="#${id}" aria-label="${p.name}" style="aspect-ratio:${w}/${h}"><img src="images/hero/${id}.jpg" alt="${p.name} — ${p.kind||p.cat}"></a>`;}).join('');
+document.getElementById('stack').innerHTML=ST.map(([id,w,h])=>{const p=P.find(x=>x.id===id);return `<a class="sc" data-pos="${ST.findIndex(x=>x[0]===id)}" href="#${id}" aria-label="${p.name}" style="aspect-ratio:${w}/${h}"><img src="images/hero/${id}.jpg?v=${V}" alt="${p.name} — ${p.kind||p.cat}"></a>`;}).join('');
 (()=>{const st=document.getElementById('stack');let hover=false;st.addEventListener('mouseenter',()=>hover=true);st.addEventListener('mouseleave',()=>hover=false);
  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
  setInterval(()=>{ if(hover||reduce||document.hidden) return; st.querySelectorAll('.sc').forEach(c=>{const n=+c.dataset.pos; c.dataset.pos = n===5?0:n+1;}); },2600);})();
