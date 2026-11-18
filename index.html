@@ -11,11 +11,12 @@
 @font-face{font-family:"PP Mori";src:url(fonts/PPMori-Semibold.woff2) format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"PP Mori";src:url(fonts/PPMori-Extrabold.woff2) format("woff2");font-weight:800;font-display:swap}
 :root{
-  --cream:#fff; --ink:#0b0b0b; --grain:#f3f3f3; --dark:#0b0b0b; --oci-bg:#fff; --oci:#0b0b0b;
+  --cream:#fff; --accent:#F1EFA8; --ink:#0b0b0b; --grain:#f3f3f3; --dark:#0b0b0b; --oci-bg:#fff; --oci:#0b0b0b;
   --f:"PP Mori",system-ui,sans-serif; --mono:var(--f); --serif:var(--f);
   --pad:clamp(16px,1.6vw,24px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+::selection{background:var(--accent);color:var(--ink)}
 html{scroll-behavior:smooth;overflow-x:clip;scroll-padding-top:64px}
 body{font-family:var(--f);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:clip;font-size:16px;line-height:1.45}
 a{color:inherit;text-decoration:none}
@@ -27,11 +28,11 @@ img{display:block;max-width:100%}
 .hero{position:relative;min-height:100svh;padding:var(--pad);padding-right:calc(var(--pad) + 76px);display:flex;flex-direction:column;background:var(--cream)}
 .page{position:relative}
 .side{position:absolute;top:0;right:0;bottom:0;width:76px;z-index:30;background:var(--cream);border-left:14px solid var(--ink)}
-.side-in{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:28px;gap:40px}
+.side-in{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:24px;gap:40px}
 .burger{width:44px;display:grid;gap:9px;padding:6px 0}
 .burger i{display:block;height:2px;background:var(--ink)}
 .side .vt{writing-mode:vertical-rl;font-weight:600;font-size:30px;letter-spacing:-.03em;white-space:nowrap;display:flex;align-items:center;gap:14px}
-.side .vt .dot{width:12px;height:12px;border-radius:50%;background:var(--ink);display:inline-block}
+.side .vt .dot{width:14px;height:14px;border-radius:50%;background:var(--accent);display:inline-block}
 .topnav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:40px;padding-bottom:18px}
 .logo{font-weight:800;font-size:34px;line-height:.86;letter-spacing:-.045em}
 .logo span{display:block}
@@ -123,7 +124,7 @@ body.on-project .h2-top{display:none}
   .proc .ptabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:0;border-top:0;gap:0;row-gap:0}
   .proc .ptabs::-webkit-scrollbar{display:none}
   .proc .ptab{flex:0 0 46%;scroll-snap-align:start;border-top:1px solid var(--ink);padding:16px 14px 6px 0;margin-top:0}
-  .proc .ptab.on{border-top:3px solid var(--ink);padding-top:14px}
+  .proc .ptab.on{border-top:3px solid var(--accent);padding-top:14px}
   .proc-head h2 br{display:none}
   .proc-head h2{white-space:nowrap;font-size:clamp(40px,13.5vw,72px)}
   .brief .req{display:none}
@@ -190,7 +191,9 @@ body.on-project .h2-top{display:none}
 .count{font-weight:800;font-size:18px;align-self:start;justify-self:end}
 .plist{border-bottom:1px solid #d0d0d0}
 .prow{width:100%;display:grid;grid-template-columns:1fr 200px 200px 170px 60px;align-items:center;gap:20px;padding:20px 18px;border-top:1px solid #d0d0d0;text-align:left;transition:background .35s,color .35s;position:relative}
-.prow:hover,.prow:focus-visible{background:var(--dark);color:#fff;outline:0}
+.prow:hover,.prow:focus-visible,.prow:active{background:var(--dark);color:#fff;outline:0}
+.prow:hover .ar,.prow:focus-visible .ar,.prow:active .ar{color:var(--accent)}
+.prow{-webkit-tap-highlight-color:transparent}
 .prow .nm{display:flex;align-items:flex-start;gap:6px}
 .prow sup{font-weight:600;font-size:15px;padding-top:.3em;letter-spacing:-.02em}
 .prow h3{font-weight:800;font-size:clamp(30px,4vw,64px);text-transform:uppercase;letter-spacing:-.055em;line-height:.95}
@@ -205,7 +208,7 @@ body.on-project .h2-top{display:none}
 
 /* ============ NUMBERS — OCI ============ */
 .oci{background:var(--oci-bg);color:var(--oci);font-family:var(--f);font-weight:600;padding:var(--pad);padding-right:calc(var(--pad) + 76px)}
-.oci-head{display:flex;justify-content:space-between;align-items:stretch;border-bottom:1px solid var(--oci)}
+.oci-head{display:flex;justify-content:flex-start;align-items:stretch;border-bottom:1px solid var(--oci)}
 .oci-badge{display:flex;align-items:center;gap:18px;background:var(--oci);color:#fff;padding:18px 26px;font-size:15px;letter-spacing:.04em;text-transform:uppercase;margin-bottom:var(--pad)}
 .oci-badge svg{width:34px;height:34px}
 .oci-head .r{border-left:1px solid var(--oci);width:30%;display:flex;align-items:flex-start;justify-content:flex-end;padding-left:var(--pad)}
@@ -226,10 +229,10 @@ body.on-project .h2-top{display:none}
 .proc-head h2{grid-column:1/span 6;font-weight:800;font-size:clamp(56px,8vw,140px);letter-spacing:-.065em;line-height:.85}
 .proc-head p{grid-column:9/span 4;align-self:end;color:#555;font-size:15px}
 .ptabs{display:grid;grid-template-columns:repeat(6,1fr);border-top:1px solid var(--ink)}
-.ptab{text-align:left;padding:18px 16px 0 0;color:#bbb;transition:color .25s;border-top:3px solid transparent;margin-top:-2px}
+.ptab{text-align:left;padding:18px 16px 0 0;color:#bbb;transition:color .25s;border-top:3px solid transparent;margin-top:-2px;-webkit-tap-highlight-color:transparent}
 .ptab .no{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
 .ptab .pt{font-size:clamp(16px,1.5vw,22px);font-weight:600;letter-spacing:-.03em}
-.ptab.on{color:var(--ink);border-top-color:var(--ink)}
+.ptab.on{color:var(--ink);border-top-color:var(--accent)}
 .pbody{display:grid;grid-template-columns:repeat(12,1fr);margin-top:9vh;min-height:220px}
 .pbody .big{grid-column:1/span 3;font-size:clamp(100px,14vw,220px);font-weight:800;letter-spacing:-.08em;line-height:.8}
 .pbody .txt{grid-column:5/span 7;align-self:end}
@@ -242,7 +245,8 @@ body.on-project .h2-top{display:none}
 .ft{background:#000;color:#fff;border-radius:22px 22px 0 0;padding:var(--pad);overflow:hidden;position:relative;z-index:31}
 .ft-grid{display:grid;grid-template-columns:330px 1fr;gap:4vw;align-items:start}
 .brief{background:#fff;color:#000;padding:14px 14px 16px;font-size:12px}
-.brief .dots{font-size:12px;letter-spacing:-.1em}
+.brief .dots{display:block;height:14px}
+.brief .dots span{display:block;width:14px;height:14px;border-radius:50%;background:var(--accent)}
 .brief h4{font-family:var(--f);font-weight:600;font-size:22px;letter-spacing:.01em;text-transform:uppercase;margin:4px 0 34px}
 .brief label{display:block;border-bottom:1px solid #000;padding:9px 0 4px;color:#777}
 .brief input,.brief select{width:100%;border:0;outline:0;font:inherit;color:#000;background:transparent;padding:2px 0}
@@ -347,7 +351,6 @@ body.on-project .h2-top{display:none}
 </div>
 <div class="page">
 <aside class="side" aria-label="Status"><div class="side-in">
-  <a href="#home" class="burger" aria-label="Home"><i></i><i></i><i></i></a>
   <span class="vt"><span class="dot"></span>Open for new projects</span>
 </div></aside>
 
@@ -391,10 +394,9 @@ body.on-project .h2-top{display:none}
       <svg viewBox="0 0 40 40" fill="none" stroke="#fff" stroke-width="2"><circle cx="20" cy="20" r="14"/><path d="M20 2v36M2 20h36"/></svg>
       Yuliia Hruba — UI/UX Design
     </div>
-    <div class="r"><span>Kyiv · Worldwide</span></div>
   </div>
   <div class="oci-row">
-    <div class="l"><span>Numbers</span><small>Figures from Yuliia's profile and project work.</small></div>
+    <div class="l"><span>Numbers</span></div>
     <div class="rr"><div class="num rv">3<sup>+</sup></div><p class="rv">Years in UI/UX design — e‑commerce websites, product pages, SaaS and mobile apps, from research to developer handoff.</p></div>
   </div>
   <div class="oci-row">
@@ -431,7 +433,7 @@ body.on-project .h2-top{display:none}
 <footer class="ft" id="contact">
   <div class="ft-grid">
     <form class="brief" id="brief" novalidate>
-      <div class="dots">●●</div>
+      <div class="dots"><span></span></div>
       <h4>Start a project</h4>
       <label>Project type
         <select id="bType"><option>E‑commerce / CRO</option><option>Website redesign</option><option>Landing page</option><option>Mobile app</option><option>SaaS / Dashboard</option></select>
