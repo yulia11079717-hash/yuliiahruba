@@ -124,7 +124,8 @@ body.on-project .h2-top{display:none}
   .proc .ptabs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0;padding:0;border-top:0;gap:0;row-gap:0}
   .proc .ptabs::-webkit-scrollbar{display:none}
   .proc .ptab{flex:0 0 46%;scroll-snap-align:start;border-top:1px solid var(--ink);padding:16px 14px 6px 0;margin-top:0}
-  .proc .ptab.on{border-top:3px solid var(--accent);padding-top:14px}
+  .proc .ptab.on{border-top:1px solid var(--ink);padding-top:16px}
+  .proc .ptab::before{top:-2px}
   .proc-head h2 br{display:none}
   .proc-head h2{white-space:nowrap;font-size:clamp(40px,13.5vw,72px)}
   .brief .req{display:none}
@@ -232,7 +233,13 @@ body.on-project .h2-top{display:none}
 .ptab{text-align:left;padding:18px 16px 0 0;color:#bbb;transition:color .25s;border-top:3px solid transparent;margin-top:-2px;-webkit-tap-highlight-color:transparent}
 .ptab .no{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
 .ptab .pt{font-size:clamp(16px,1.5vw,22px);font-weight:600;letter-spacing:-.03em}
-.ptab.on{color:var(--ink);border-top-color:var(--accent)}
+.ptab.on{color:var(--ink)}
+.ptab{position:relative;display:flex;flex-direction:column;justify-content:flex-start}
+.ptab::before{content:"";position:absolute;left:0;top:-3px;height:3px;width:0;background:var(--accent)}
+.ptab.on::before{width:100%}
+.ptabs.run .ptab.on::before{animation:pfill var(--pdur,5s) linear forwards}
+@keyframes pfill{from{width:0}to{width:100%}}
+@media (prefers-reduced-motion:reduce){.ptabs.run .ptab.on::before{animation:none}}
 .pbody{display:grid;grid-template-columns:repeat(12,1fr);margin-top:9vh;min-height:220px}
 .pbody .big{grid-column:1/span 3;font-size:clamp(100px,14vw,220px);font-weight:800;letter-spacing:-.08em;line-height:.8}
 .pbody .txt{grid-column:5/span 7;align-self:end}
@@ -581,8 +588,11 @@ const STEPS=[["Discovery","Your goals, users and competitors. We start by listen
 const tabs=document.getElementById('ptabs'),pb=document.getElementById('pbody');
 tabs.innerHTML=STEPS.map((x,i)=>`<button class="ptab${i?'':' on'}" role="tab" data-i="${i}"><span class="no">0${i+1}</span><span class="pt">${x[0]}</span></button>`).join('');
 function step(i){[...tabs.children].forEach((t,j)=>t.classList.toggle('on',j==i)); if(tabs.scrollWidth>tabs.clientWidth){const t=tabs.children[i]; tabs.scrollTo({left:t.offsetLeft-tabs.firstElementChild.offsetLeft,behavior:'smooth'});}pb.innerHTML=`<div class="big fade">0${+i+1}</div><div class="txt fade"><h3>${STEPS[i][0]}</h3><p>${STEPS[i][1]}</p></div>`;}
-let si=0; step(0); const auto=setInterval(()=>{si=(si+1)%6;step(si);},5000);
-tabs.addEventListener('click',e=>{const t=e.target.closest('.ptab');if(t){clearInterval(auto);step(t.dataset.i);}});
+let si=0,ptm=null,pvis=false; const PD=5000; step(0);
+function prun(){clearTimeout(ptm); tabs.classList.remove('run'); void tabs.offsetWidth; if(!pvis||document.hidden) return; tabs.classList.add('run'); ptm=setTimeout(()=>{si=(si+1)%6; step(si); prun();},PD);}
+new IntersectionObserver(es=>{pvis=es[0].isIntersecting; prun();},{threshold:.25}).observe(tabs);
+document.addEventListener('visibilitychange',prun);
+tabs.addEventListener('click',e=>{const t=e.target.closest('.ptab');if(t){si=+t.dataset.i; step(si); prun();}});
 
 
 // About line fills word by word on scroll
