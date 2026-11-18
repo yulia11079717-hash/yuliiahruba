@@ -514,7 +514,7 @@ const pad2 = n => String(n).padStart(2,'0');
 
 // A panel that shows the real image when it exists, and a styled cover otherwise.
 function panel(p, file="cover.jpg"){
-  return `<div class="pn pn-${p.pn}"><small>${p.cat}</small><div class="big">${p.label}</div><img src="${img(p,file)}" alt="${p.name}" loading="lazy" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()"></div>`;
+  return `<div class="pn pn-${p.pn}"><small>${p.cat}</small><div class="big">${p.label}</div><img src="${img(p,file)}" alt="${p.name}" loading="lazy" onload="this.parentNode.classList.add('has-img')" onerror="if(!this.dataset.f&&/\.jpg/.test(this.src)){this.dataset.f=1;this.src=this.src.replace('.jpg','.png')}else this.remove()"></div>`;
 }
 
 // hero card stack
@@ -535,7 +535,7 @@ const home=document.getElementById('home-view'), pv=document.getElementById('pro
 document.getElementById('ppTabs').innerHTML=P.map(p=>`<a href="#${p.id}" data-t="${p.id}">${p.name}</a>`).join('');
 function renderProject(i){
   const p=P[i], nx=P[(i+1)%P.length];
-  const g=Array.from({length:p.gallery},(_,k)=>`<img src="${img(p,'g'+pad2(k+1)+'.jpg')}" alt="${p.name} — screen ${k+1}" loading="lazy" onerror="this.remove()">`).join('');
+  const g=Array.from({length:p.gallery},(_,k)=>`<img src="${img(p,'g'+pad2(k+1)+'.jpg')}" alt="${p.name} — screen ${k+1}" loading="lazy" onerror="if(!this.dataset.f&&/\.jpg/.test(this.src)){this.dataset.f=1;this.src=this.src.replace('.jpg','.png')}else this.remove()">`).join('');
   body.innerHTML=`
     <section class="pp-hero"><span class="idx">${pad2(i+1)} / ${pad2(P.length)} — ${p.cat}</span><h1>${p.name}</h1><p class="uw">${p.upTitle}</p></section>
     <div class="pp-cover">${heroImg(p)}</div>
